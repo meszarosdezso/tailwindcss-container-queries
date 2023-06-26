@@ -34,7 +34,9 @@ export = plugin(
       (value = '', { modifier }) => {
         let parsed = parseValue(value)
 
-        return parsed !== null ? `@container ${modifier ?? ''} (min-width: ${value})` : []
+        const query = CSS.supports('container-type') ? 'container' : 'media'
+
+        return parsed !== null ? `@${query} ${modifier ?? ''} (min-width: ${value})` : []
       },
       {
         values,
